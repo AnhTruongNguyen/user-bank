@@ -1,38 +1,46 @@
 package userbank.demo.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Table(name = "/users")
-public class User {
+@Table(name = "users")
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long id;
+    private Long userId;
+
     @Column(name = "user_name")
-    private String name;
+    private String userName;
+
     @Column(name = "full_name")
     private String fullName;
+
     @Column(name = "age")
-    private int age;
+    private Integer age;
+
     @Column(name = "gender")
-    private boolean gender;
-    @OneToMany(mappedBy = "user")
+    private Boolean gender;
 
-    public long getId() {
-        return id;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Bank> banks;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFullName() {
@@ -43,19 +51,27 @@ public class User {
         this.fullName = fullName;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public boolean isGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
+    }
+
+    public Set<Bank> getBanks() {
+        return banks;
+    }
+
+    public void setBanks(Set<Bank> banks) {
+        this.banks = banks;
     }
 }

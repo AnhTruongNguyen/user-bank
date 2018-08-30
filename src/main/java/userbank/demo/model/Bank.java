@@ -6,51 +6,55 @@ import org.omg.CORBA.portable.Streamable;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "/banks")
-public class Bank {
+@Table(name = "banks")
+public class Bank implements Serializable {
     @Id
-    @Column (name = "bank_id")
-    private long idBank;
-    @Column (name = "bank_name")
-    private String name;
-    @Column (name = "bank_account")
-    private String account;
-    @Column (name = "user_id")
-    private long idUser;
-    //@ManyToOne(fetch = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bank_id")
+    private Long bankId;
+
+    @Column(name = "bank_name")
+    private String bankName;
+
+    @Column(name = "bank_account")
+    private String bankAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public long getIdBank() {
-        return idBank;
+    public Long getBankId() {
+        return bankId;
     }
 
-    public void setIdBank(long idBank) {
-        this.idBank = idBank;
+    public void setBankId(Long bankId) {
+        this.bankId = bankId;
     }
 
-    public String getName() {
-        return name;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
-    public String getAccount() {
-        return account;
+    public String getBankAccount() {
+        return bankAccount;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
-    public long getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
